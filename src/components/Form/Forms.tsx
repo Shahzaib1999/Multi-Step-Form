@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import UserInfo from './UserInfo';
 import UserAuth from './UserAuth';
+import ReviewForm from './Review';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,14 +29,14 @@ function getSteps() {
   return ['User Auth', 'User Info', 'Review'];
 }
 
-function getStepContent(stepIndex: number,handleNext: () => void, data: any, setData: any) {
+function getStepContent(stepIndex: number,handleNext: () => void, data: any, setData: any,handleReset: () => void) {
   switch (stepIndex) {
     case 0:
       return <UserAuth handleNext={handleNext} data={data} setData={setData} />;
     case 1:
       return <UserInfo handleNext={handleNext} data={data} setData={setData} />;
     case 2:
-      return 'This is the bit I really care about!';
+      return <ReviewForm data={data} setData={setData} handleReset={handleReset} />;
     default:
       return 'Unknown stepIndex';
   }
@@ -81,7 +82,7 @@ export default function Form() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,handleNext,data,setData)}</Typography>
+            <Typography className={classes.instructions}>{getStepContent(activeStep,handleNext,data,setData,handleReset)}</Typography>
             {/* <div>
               <Button
                 disabled={activeStep === 0}
