@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import UserInfo from './UserInfo';
+import UserAuth from './UserAuth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,12 +28,12 @@ function getSteps() {
   return ['User Auth', 'User Info', 'Review'];
 }
 
-function getStepContent(stepIndex: number,handleNext: () => void) {
+function getStepContent(stepIndex: number,handleNext: () => void, data: any, setData: any) {
   switch (stepIndex) {
     case 0:
-      return <UserInfo handleNext={handleNext} />;
+      return <UserAuth handleNext={handleNext} data={data} setData={setData} />;
     case 1:
-      return 'What is an ad group anyways?';
+      return <UserInfo handleNext={handleNext} data={data} setData={setData} />;
     case 2:
       return 'This is the bit I really care about!';
     default:
@@ -42,6 +43,12 @@ function getStepContent(stepIndex: number,handleNext: () => void) {
 
 export default function Form() {
   const classes = useStyles();
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    name: '',
+    age: 0
+  });
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
@@ -74,7 +81,7 @@ export default function Form() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,handleNext)}</Typography>
+            <Typography className={classes.instructions}>{getStepContent(activeStep,handleNext,data,setData)}</Typography>
             {/* <div>
               <Button
                 disabled={activeStep === 0}
