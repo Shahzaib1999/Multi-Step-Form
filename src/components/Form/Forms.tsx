@@ -6,6 +6,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import UserInfo from './UserInfo';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -22,13 +24,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps() {
-  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['User Auth', 'User Info', 'Review'];
 }
 
-function getStepContent(stepIndex: number) {
+function getStepContent(stepIndex: number,handleNext: () => void) {
   switch (stepIndex) {
     case 0:
-      return 'Select campaign settings...';
+      return <UserInfo handleNext={handleNext} />;
     case 1:
       return 'What is an ad group anyways?';
     case 2:
@@ -72,8 +74,8 @@ export default function Form() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            <div>
+            <Typography className={classes.instructions}>{getStepContent(activeStep,handleNext)}</Typography>
+            {/* <div>
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
@@ -84,7 +86,7 @@ export default function Form() {
               <Button variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

@@ -32,7 +32,7 @@ export default function AppBarCom() {
             aria-label="menu"
           >
             <Typography variant="h6" className={classes.title}>
-              News
+              Multi-Stepper-Form
             </Typography>
           </IconButton>
         </Toolbar>
